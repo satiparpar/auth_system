@@ -13,8 +13,11 @@ there are 6 kinds of uses:<br>
 2- staff users   you can see <a href="{% url 'is_staff_check' %}">this page</a> if you are staff user<br>
 3- golden users   you can see <a href="{% url 'is_golden_user' %}">this page</a> if you are golden user<br>
 4- silvern users   you can see <a href="{% url 'is_silvern_check' %}">this page</a> if you are silvern user<br>
-5- normal users   you can see <a href="{% url 'profile' %}" > this page</a> if you have registered before<br>
-6- Not registered users ( Minimum access to site facilities )<br>
-
+5- normal users   you can see your info in <a href="{% url 'profile' %}" > this page</a> if you have registered before<br>
+6- Not registered users ( Minimum access to site facilities )<br><br>
+{% if user.is_authenticated %}
+Hi {{ user.username }}<br><br>
+You can <a href="{% url 'logout' %}">Logout</a> if you like.
+{% endif %}
 </body>
 </html>

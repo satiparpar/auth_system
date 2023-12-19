@@ -25,8 +25,36 @@ def is_silvern_user(user):
     return user.is_authenticated and user.is_silvern
 
 
+@login_required(login_url='register')
+def profile(request):
+    user = CustomUser.objects.get(username=request.user.username)
+    return render(request, 'auth_system/profile.html', {'user': user})
+
+
+@user_passes_test(is_superuser, login_url='/')
+def is_superuser_check(request):
+    return HttpResponse("you are superuser so you can see this page")
+
+
+@user_passes_test(is_staff, login_url='/')
+def is_staff_check(request):
+    return HttpResponse("you are staff user so you can see this page")
+
+
+@user_passes_test(is_golden_user, login_url='/')
+def is_golden_check(request):
+    return HttpResponse('you are golden user so you can see this page')
+    # return redirect('/')
+
+
+@user_passes_test(is_silvern_user, login_url='/')
+def is_silvern_check(request):
+    return HttpResponse('you are silvern user so you can see this page')
+
+
 def home(request):
-    return render(request, 'auth_system/home.html')
+    user = CustomUser.objects.filter(username=request.user.username).first()
+    return render(request, 'auth_system/home.html', {'user': user})
 
 
 def register(request):
@@ -62,28 +90,28 @@ def register(request):
         return render(request, 'auth_system/register.html')
 
 
-@login_required(login_url='register')
-def profile(request):
-    user = CustomUser.objects.get(username=request.user.username)
-    return render(request, 'auth_system/profile.html', {'user': user})
+def login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = auth.authenticate(username=username, password=password)
+        if user is not None:
+            auth.login(request, user)
+            return redirect('/')
+
+        elif CustomUser.objects.filter(username=username).exists():
+            messages.info(request, 'Invalid password')
+            return redirect('/login/')
+
+        else:
+            messages.info(request, 'Invalid username')
+            return redirect('/login/')
+
+    else:
+        return render(request, 'auth_system/login.html')
 
 
-@user_passes_test(is_superuser, login_url='/')
-def is_superuser_check(request):
-    return HttpResponse("you are superuser so you can see this page")
-
-
-@user_passes_test(is_staff, login_url='/')
-def is_staff_check(request):
-    return HttpResponse("you are staff user so you can see this page")
-
-
-@user_passes_test(is_golden_user, login_url='/')
-def is_golden_check(request):
-    return HttpResponse('you are golden user so you can see this page')
-    # return redirect('/')
-
-
-@user_passes_test(is_silvern_user, login_url='/')
-def is_silvern_check(request):
-    return HttpResponse('you are silvern user so you can see this page')
+def logout_view(request):
+    auth.logout(request)
+    return redirect('/')

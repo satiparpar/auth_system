@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<form action="/" method="POST" class="form-horizontal">
+<form action="{% url 'register' %}" method="POST" class="form-horizontal">
 		{% csrf_token%}
 				<label for="first_name">First name </label>
 				<input type="text" class="form-control" name="first_name" id="first_name" placeholder=" Enter your name"
@@ -38,7 +38,7 @@
 
 			<br><br>
 			<button type="submit" class="btn btn-primary">register</button>
-			<a class="btn btn-dark" href="/" role="button">ورود به حساب کاربری</a>
+			<a class="btn btn-dark" href="{% url 'login' %}" role="button">Login</a>
 
 	</form>
 </body>
