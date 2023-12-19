@@ -1,14 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1, h2, h3 {
+        color: #007bff;
+    }
+
+    p {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+
     <meta charset="UTF-8">
     <title>Home</title>
 </head>
 <body>
 Hi, This is authentication system which uses Django.<br>
-you can use for your websites.<br>
+you can use it for your websites.<br>
 Each user can register, login, logout.<br>
-there are 6 kinds of uses:<br>
+there are 6 kinds of users:<br>
 1- superusers ( full access to website ) you can see <a href="{% url 'is_superuser_check' %}">this page</a> if you are superuser <br>
 2- staff users   you can see <a href="{% url 'is_staff_check' %}">this page</a> if you are staff user<br>
 3- golden users   you can see <a href="{% url 'is_golden_user' %}">this page</a> if you are golden user<br>
@@ -17,7 +45,11 @@ there are 6 kinds of uses:<br>
 6- Not registered users ( Minimum access to site facilities )<br><br>
 {% if user.is_authenticated %}
 Hi {{ user.username }}<br><br>
-You can <a href="{% url 'logout' %}">Logout</a> if you like.
+You can <a href="{% url 'logout' %}">Log out</a> if you like.
+{% else %}
+<a class="btn btn-dark" href="{% url 'login' %}" role="button">Login</a>
 {% endif %}
+<br><br><br>
+source code : <a href="https://github.com/satiparpar/auth_system" target="_blank">github</a>
 </body>
 </html>
