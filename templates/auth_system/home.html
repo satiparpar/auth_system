@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+Hi, This is authentication system which uses Django.<br>
+you can use for your websites.<br>
+Each user can register, login, logout.<br>
+there are 6 kinds of uses:<br>
+1- superusers ( full access to website ) you can see <a href="{% url 'is_superuser_check' %}">this page</a> if you are superuser <br>
+2- staff users   you can see <a href="{% url 'is_staff_check' %}">this page</a> if you are staff user<br>
+3- golden users   you can see <a href="{% url 'is_golden_user' %}">this page</a> if you are golden user<br>
+4- silvern users   you can see <a href="{% url 'is_silvern_check' %}">this page</a> if you are silvern user<br>
+5- normal users   you can see <a href="{% url 'profile' %}" > this page</a> if you have registered before<br>
+6- Not registered users ( Minimum access to site facilities )<br>
+
+</body>
+</html>
