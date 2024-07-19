@@ -1,5 +1,4 @@
-Hi,
-Its a authentication and authorization system written by Django.
+Authentication and authorization system written by Django.
 In this code there are 6 kinds of users (superusers/ staff users/ golden users/ silvern users/ normal users/ not registered users ) that you can limit them by their role.
 Its totally free and you can use it for your website.
 Of course it needs more customisations according your website.
